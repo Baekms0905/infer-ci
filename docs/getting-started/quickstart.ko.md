@@ -12,13 +12,13 @@ infer-ci는 Python 3.10 이상이 필요합니다. 가상환경 설정과 다른
 
 ## 첫 번째 평가
 
-`MetricEvaluator.evaluate()`는 정답 레이블과 모델 예측값을 입력받아, 지표 값과 그 신뢰구간(CI)을 함께 반환합니다.
+`MetricEvaluator.evaluate()`는 정답값과 모델 예측값을 입력받아, 지표값과 그 신뢰구간(CI)을 함께 반환합니다.
 
 ### 입력값
 
 | 인자 | 설명 |
 |---|---|
-| `y_true` | 정답 값. 1차원 NumPy 배열 또는 리스트입니다. 이진 분류에서는 `0`/`1` 레이블을, 회귀에서는 숫자를 사용합니다. |
+| `y_true` | 정답값. 1차원 NumPy 배열 또는 리스트입니다. 이진 분류에서는 `0`/`1` 레이블을, 회귀에서는 숫자를 사용합니다. |
 | `y_pred` | 모델 예측값. `y_true`와 같은 순서, 같은 길이여야 합니다. 분류에서는 확률이 아닌 예측 레이블을 사용합니다. |
 | `task` | 문제 유형: `'classification'`, `'regression'`, `'detection'` 중 하나입니다. |
 | `metric` | 계산할 지표. 예: `'accuracy'`, `'mae'`. [사용 가능한 지표](#available-metrics)를 참고하세요. |
@@ -31,7 +31,7 @@ infer-ci는 Python 3.10 이상이 필요합니다. 가상환경 설정과 다른
 | `confidence_level` | `0.95` | 신뢰수준입니다. `0.95`이면 95% 신뢰구간을 계산합니다. |
 | `n_resamples` | `9999` | Bootstrap 재표집 횟수입니다. Bootstrap 방법에서만 사용합니다. |
 | `random_state` | `None` | Bootstrap 방법의 난수 시드입니다. 값을 지정하면(예: `random_state=42`) 실행할 때마다 같은 신뢰구간이 나옵니다. |
-| `compute_ci` | `True` | `False`로 지정하면 지표 값만 반환합니다. |
+| `compute_ci` | `True` | `False`로 지정하면 지표값만 반환합니다. |
 
 ### 반환값
 
@@ -41,7 +41,7 @@ infer-ci는 Python 3.10 이상이 필요합니다. 가상환경 설정과 다른
 value, (lower, upper) = evaluator.evaluate(...)
 ```
 
-- `value`: 입력 데이터로 계산한 지표 값
+- `value`: 입력 데이터로 계산한 지표값
 - `(lower, upper)`: 신뢰구간의 하한과 상한
 
 아래 예제에서는 신뢰구간을 `ci`로 받아 `ci[0]`(하한)과 `ci[1]`(상한)로 읽습니다. `compute_ci=False`이면 `value`만 반환합니다.
@@ -354,7 +354,7 @@ for metric in ['accuracy', 'precision', 'recall', 'f1']:
 
 - `method` - 신뢰구간 계산 방법(기본값: 'bootstrap_bca')
 - `confidence_interval` - 신뢰수준(기본값: 0.95)
-- `n_resamples` - Bootstrap 반복 횟수(기본값: 2000)
+- `n_resamples` - Bootstrap 재표집 횟수(기본값: 2000)
 - `random_state` - 재현성을 위한 난수 시드
 - `compute_ci` - 신뢰구간 계산 여부(기본값: True)
 - `plot` - 시각화 생성(기본값: False, Bootstrap 전용)
